@@ -18,6 +18,16 @@
             <x-text-input id="password" class="block mt-1 w-full !rounded-2xl border-none py-3 px-4 shadow-sm" type="password" name="password" required placeholder="Mot de passe" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
+        <div class="mt-4">
+            <x-text-input id="password_confirmation"
+                class="block mt-1 w-full !rounded-2xl border-none py-3 px-4 shadow-sm"
+                type="password"
+                name="password_confirmation"
+                required
+                placeholder="Confirmez le mot de passe" />
+
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
         <div class="mt-6">
             <label class="block font-medium text-sm text-white/80 mb-3 text-center">Vous êtes ?</label>
 
