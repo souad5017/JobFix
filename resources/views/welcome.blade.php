@@ -18,7 +18,7 @@
                 <div class="flex-shrink-0">
                     <span class="text-2xl font-bold text-[#1e293b]">Job<span class="text-[#f97316]">Fix</span></span>
                 </div>
-                <div class="hidden md:block">
+                <div class=" md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="{{ route('login') }}" class="text-gray-600 hover:text-[#f97316] px-3 py-2 font-medium">Se connecter</a>
                         <a href="{{ route('register') }}" class="bg-[#f97316] text-white px-5 py-2 rounded-full font-medium hover:bg-[#ea580c] transition">s'inscrire</a>
@@ -39,18 +39,6 @@
                     <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                         La plateforme de confiance pour trouver les meilleurs électriciens, plombiers et techniciens qualifiés près de chez vous au Maroc.
                     </p>
-                    <div class="mt-8 sm:flex sm:justify-center lg:justify-start space-x-4">
-                        <div class="rounded-md shadow">
-                            <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-xl text-white bg-[#1e293b] hover:bg-slate-800 md:py-4 md:text-lg md:px-10">
-                                s'inscrire
-                            </a>
-                        </div>
-                        <div class="mt-3 sm:mt-0">
-                            <a href="{{ route('login') }}" class="w-full flex items-center justify-center px-8 py-3 border border-[#f97316] text-base font-medium rounded-xl text-[#f97316] bg-transparent hover:bg-orange-50 md:py-4 md:text-lg md:px-10">
-                                Se connecter
-                            </a>
-                        </div>
-                    </div>
                 </div>
                 <div class=" rounded-3xl shadow-2xl overflow-hidden border-4 border-white group mt-12 lg:mt-0 lg:col-span-6 flex justify-center items-center">
                     <img class="w-full h-full object-cover transform"
