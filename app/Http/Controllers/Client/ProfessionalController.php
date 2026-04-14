@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Professional;
+use App\Models\User;
 
 class ProfessionalController extends Controller
 {
@@ -12,7 +13,15 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        $professionals = Professional::paginate(6);
+        $query = request()->input('search');
+
+        $professionals = Professional::with('user')
+            ->when($query, function ($q) use ($query) {
+                $q->whereHas('user', function ($q2) use ($query) {
+                    $q2->where('name', 'like', '%' . $query . '%');
+                });
+            })
+            ->paginate(6);
 
         return view('client.professionals.index', compact('professionals'));
     }
