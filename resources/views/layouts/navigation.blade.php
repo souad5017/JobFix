@@ -6,11 +6,11 @@
                     JOB<span class="text-[#f97316]">FIX</span>
                 </a>
 
-                <div class="hidden space-x-6 sm:flex">
+                <div class=" space-x-6 flex">
                     <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('dashboard')" class="!text-[#1e293b] font-bold uppercase text-xs tracking-widest">
                         Dashboard
                     </x-nav-link>
-                    <x-nav-link href="#" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
+                    <x-nav-link href="{{ route('client.professionals.index') }}" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
                         Trouver un Pro
                     </x-nav-link>
                     <x-nav-link href="#" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
