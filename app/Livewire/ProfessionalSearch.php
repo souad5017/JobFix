@@ -11,6 +11,7 @@ class ProfessionalSearch extends Component
     use WithPagination;
 
     public $search = '';
+    public $speciality = '';
 
     public function updatingSearch()
     {
@@ -20,8 +21,13 @@ class ProfessionalSearch extends Component
     public function render()
     {
         $professionals = Professional::with('user')
-            ->whereHas('user', function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%');
+            ->when($this->search, function ($q) {
+                $q->whereHas('user', function ($q2) {
+                    $q2->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->when($this->speciality, function ($q) {
+                $q->where('speciality', $this->speciality);
             })
             ->paginate(6);
 
