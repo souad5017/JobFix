@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,14 +16,14 @@ class ProfessionalFactory extends Factory
      *
      * @return array<string, mixed>
      */
- public function definition()
-{
-    return [
-        'user_id' => User::factory(),
-        'category' => $this->faker->randomElement(['plombier','électricien','mécanicien']),
-        'description' => $this->faker->sentence(),
-        'city' => $this->faker->city(),
-        'phone' => $this->faker->phoneNumber(),
-    ];
-}
+    public function definition()
+    {
+        return [
+            'user_id' => User::factory(),
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'description' => $this->faker->sentence(),
+            'city' => $this->faker->city(),
+            'phone' => $this->faker->phoneNumber(),
+        ];
+    }
 }

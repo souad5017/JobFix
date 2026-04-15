@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Professional extends Model
 {
-      use HasFactory;
+    use HasFactory;
     protected $fillable = [
         'user_id',
         'category',
@@ -34,5 +34,9 @@ class Professional extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

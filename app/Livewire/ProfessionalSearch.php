@@ -26,8 +26,8 @@ class ProfessionalSearch extends Component
                     $q2->where('name', 'like', '%' . $this->search . '%');
                 });
             })
-            ->when($this->speciality, function ($q) {
-                $q->where('speciality', $this->speciality);
+            ->when(!empty($this->selectedSpecialties), function ($q) {
+                $q->whereIn('speciality', $this->selectedSpecialties);
             })
             ->paginate(6);
 
