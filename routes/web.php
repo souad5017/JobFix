@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 //client
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     Route::get('/professionals', [ProfessionalController::class, 'index'])
         ->name('client.professionals.index');
 
@@ -39,15 +39,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/professionals/{id}/request', [ServiceRequestController::class, 'store'])
         ->name('service.request.store')
         ->middleware('auth');
-
+    Route::post('/service-request/{professionalId}', [ServiceRequestController::class, 'store'])
+        ->name('service.request.store');
 });
 
 
 
 
 
-Route::prefix('client')->group(function () {
-
-});
+Route::prefix('client')->group(function () {});
 
 require __DIR__ . '/auth.php';

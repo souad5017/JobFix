@@ -13,7 +13,7 @@ class ServiceRequestController extends Controller
     ServiceRequest::create([
         'client_id' => auth()->id(),
         'professional_id' => $professionalId,
-        'description' => $request->message,
+        'description' => $request->description,
     ]);
 
     return back()->with('success', 'Request sent successfully');

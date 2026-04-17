@@ -12,14 +12,17 @@ class ServiceRequestModal extends Component
     public $professional;
     public $message = '';
 
-    #[On('openRequestModal')]
-    public function open($professionalId)
-    {
-        $this->professional = Professional::with('user', 'category')
-            ->findOrFail($professionalId);
+#[On('openRequestModal')]
+public function open($professionalId)
+{
+    $this->professional = Professional::with('user', 'category')
+        ->find($professionalId);
 
-        $this->show = true;
-    }
+    if (!$this->professional) return;
+
+    $this->show = true;
+     dd($professionalId);
+}
 
     public function close()
     {
