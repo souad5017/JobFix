@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Client\ProfessionalController;
+use App\Http\Controllers\Client\ServiceRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
@@ -25,20 +26,28 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'verified'])->group(function () {});
-
-
-
-
 //client
 
-Route::prefix('client')->group(function () {
-
+Route::middleware(['auth', 'verified'])->group(function () {
+    
     Route::get('/professionals', [ProfessionalController::class, 'index'])
         ->name('client.professionals.index');
 
     Route::get('/professionals/{id}', [ProfessionalController::class, 'show'])
         ->name('client.professionals.show');
+
+    Route::post('/professionals/{id}/request', [ServiceRequestController::class, 'store'])
+        ->name('service.request.store')
+        ->middleware('auth');
+
+});
+
+
+
+
+
+Route::prefix('client')->group(function () {
+
 });
 
 require __DIR__ . '/auth.php';
