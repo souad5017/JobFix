@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'string', 'in:client,professionnel'],
+            'role' => ['required', 'string', 'in:client,professional'],
         ]);
 
         $user = User::create([
@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         }
 
         if ($user->role === 'professional') {
-            return redirect()->route('professional.dashboard');
+            return redirect()->route('professional.profile.complete');
         }
 
         return redirect()->route('dashboard');

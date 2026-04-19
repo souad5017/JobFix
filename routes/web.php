@@ -6,6 +6,8 @@ use App\Http\Controllers\Client\ServiceRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Professional\ProfileController as ProfessionalProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,9 +46,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
+//professional
+
+Route::get('/complete-profile', [ProfessionalProfileController::class, 'create'])
+    ->middleware('auth')
+    ->name('profile.complete');
+
+Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
+    ->middleware('auth')
+    ->name('professional.profile.store');
 
 
 
-Route::prefix('client')->group(function () {});
 
 require __DIR__ . '/auth.php';

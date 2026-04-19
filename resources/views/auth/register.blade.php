@@ -42,8 +42,8 @@
                     </div>
                 </label>
 
-                <label for="professionnel" class="relative cursor-pointer">
-                    <input type="radio" id="professionnel" name="role" value="professionnel" class="peer hidden">
+                <label for="professional" class="relative cursor-pointer">
+                    <input type="radio" id="professional" name="role" value="professional" class="peer hidden">
                     <div class="p-4 bg-white/10 border-2 border-white/10 rounded-2xl text-center transition-all duration-300 peer-checked:border-[#f97316] peer-checked:bg-white/20 hover:bg-white/15 group">
                         <div class="text-3xl mb-2 group-hover:scale-110 transition">🛠️</div>
                         <h3 class="text-white font-bold text-sm uppercase tracking-wider">Pro</h3>
