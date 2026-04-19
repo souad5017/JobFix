@@ -55,7 +55,9 @@ Route::get('/complete-profile', [ProfessionalProfileController::class, 'create']
 Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
     ->middleware('auth')
     ->name('professional.profile.store');
-
+Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
+    ->middleware('auth')
+    ->name('professional.profile.store');
 
 
 

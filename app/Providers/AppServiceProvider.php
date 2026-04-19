@@ -21,5 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('layouts.auth-simple', 'auth-simple-layout');
+        Blade::component('layouts.professional', 'professional-layout');
     }
 }
