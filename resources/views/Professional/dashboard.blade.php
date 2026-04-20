@@ -9,10 +9,6 @@
                         Bienvenue, <span class="text-primary-container">Marc Lefebvre</span>
                     </h2>
                 </div>
-                <button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-full font-bold shadow-lg shadow-primary-container/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-2">
-                    <span class="material-symbols-outlined">add_task</span>
-                    Nouveau Service
-                </button>
             </section>
             <!-- Stat Cards: Bento Style -->
             <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -71,7 +67,7 @@
                             <thead>
                                 <tr class="bg-surface-container-low text-secondary uppercase text-[10px] tracking-widest font-black">
                                     <th class="px-8 py-4">Client</th>
-                                    <th class="px-8 py-4">Service</th>
+                                    <th class="px-8 py-4">Prix</th>
                                     <th class="px-8 py-4">Date</th>
                                     <th class="px-8 py-4 text-right">Statut</th>
                                 </tr>
@@ -80,7 +76,7 @@
                                 <tr class="hover:bg-surface-container-low/50 transition-colors">
                                     <td class="px-8 py-5 flex items-center gap-3">
                                         <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-[10px] font-bold">JD</div>
-                                        <span class="font-bold text-sm">Julien Dupont</span>
+                                        <span class="font-bold text-sm"></span>
                                     </td>
                                     <td class="px-8 py-5">
                                         <span class="px-3 py-1 bg-tertiary-container/10 text-tertiary-container text-xs font-bold rounded-full">Électricité</span>

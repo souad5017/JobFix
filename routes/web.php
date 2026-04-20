@@ -57,6 +57,9 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
 
     Route::get('/requests', [ServiceController::class, 'index'])
     ->name('professional.services');
+    Route::get('/requests/{request}', [ServiceController::class, 'show'])
+    ->middleware(['auth', 'role:professional'])
+    ->name('requests.show');
     Route::post('/requests/{request}/status/{status}', [ServiceController::class, 'updateStatus']);
 });
 

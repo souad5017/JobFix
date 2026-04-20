@@ -25,4 +25,10 @@ class ServiceController extends Controller
 
         return back();
     }
+    public function show(ServiceRequest $request)
+    {
+        $this->authorize('view', $request);
+
+        return view('professional.show_services', compact('request'));
+    }
 }

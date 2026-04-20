@@ -135,7 +135,7 @@
 
                 <a href="{{ route('professional.services') }}"
                     class="flex items-center gap-4 px-6 py-4 transition-all duration-300 group rounded-full
-       {{ request()->routeIs('professional.services.*') 
+       {{ request()->routeIs('professional.services') 
           ? 'bg-[#f37021] text-white shadow-[0_10px_20px_-5px_rgba(243,112,33,0.3)]' 
           : 'text-slate-500 hover:text-[#f37021] hover:bg-orange-50' }}">
                     <span class="material-symbols-outlined text-[22px] {{ request()->routeIs('professional.services.*') ? '' : 'opacity-70 group-hover:opacity-100' }}">
