@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Professional\ProfileController as ProfessionalProfileController;
-
+use App\Http\Controllers\Professional\ServiceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,6 +54,10 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('professional.profile.store');
     Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
         ->name('professional.profile.store');
+
+    Route::get('/requests', [ServiceController::class, 'index'])
+    ->name('professional.services');
+    Route::post('/requests/{request}/status/{status}', [ServiceController::class, 'updateStatus']);
 });
 
 require __DIR__ . '/auth.php';

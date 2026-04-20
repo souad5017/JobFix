@@ -133,7 +133,7 @@
                     <span class="font-bold text-[15px]">Edit Profile</span>
                 </a>
 
-                <a href="#"
+                <a href="{{ route('professional.services') }}"
                     class="flex items-center gap-4 px-6 py-4 transition-all duration-300 group rounded-full
        {{ request()->routeIs('professional.services.*') 
           ? 'bg-[#f37021] text-white shadow-[0_10px_20px_-5px_rgba(243,112,33,0.3)]' 
