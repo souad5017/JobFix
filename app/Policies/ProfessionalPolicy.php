@@ -19,25 +19,25 @@ class ProfessionalPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Professional $professional): bool
+    public function view(User $user, Professional $professional)
     {
-        return false;
+        return $user->id === $professional->user_id;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user)
     {
-        return false;
+        return $user->professional === null;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Professional $professional): bool
+    public function update(User $user, Professional $professional)
     {
-        return false;
+        return $user->id === $professional->user_id;
     }
 
     /**

@@ -13,14 +13,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/client/dashboard', [DashboardController::class, 'index'])
-    ->name('client.dashboard');
-
-Route::get('/professional/dashboard', function () {
-    return view('professional.dashboard');
-})->name('professional.dashboard');
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,7 +22,10 @@ Route::middleware('auth')->group(function () {
 
 //client
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'role:client'])->group(function () {
+
+    Route::get('/client/dashboard', [DashboardController::class, 'index'])
+        ->name('client.dashboard');
 
     Route::get('/professionals', [ProfessionalController::class, 'index'])
         ->name('client.professionals.index');
@@ -47,18 +42,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 //professional
+Route::middleware(['auth', 'role:professional'])->group(function () {
 
-Route::get('/complete-profile', [ProfessionalProfileController::class, 'create'])
-    ->middleware('auth')
-    ->name('profile.complete');
+    Route::get('/professional/dashboard', function () {
+        return view('professional.dashboard');
+    })->name('professional.dashboard');
 
-Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
-    ->middleware('auth')
-    ->name('professional.profile.store');
-Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
-    ->middleware('auth')
-    ->name('professional.profile.store');
-
-
+    Route::get('/complete-profile', [ProfessionalProfileController::class, 'create'])
+        ->name('profile.complete');
+    Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
+        ->name('professional.profile.store');
+    Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
+        ->name('professional.profile.store');
+});
 
 require __DIR__ . '/auth.php';

@@ -11,6 +11,8 @@ class ProfileController extends Controller
 {
     public function create()
     {
+        $this->authorize('create', Professional::class);
+
         $categories = Category::all();
 
         return view('Professional.Profile.complete', compact('categories'));
