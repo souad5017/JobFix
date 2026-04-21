@@ -1,6 +1,9 @@
 <x-professional-layout>
         <!-- Main Canvas -->
-        <main class="flex-1 space-y-8 pb-24 md:pb-8">
+        
+    <body class="bg-surface text-on-surface">
+
+        <main class="flex-1 space-y-8 pb-24 md:pb-8 ml-80 min-h-screen m-10">
             <!-- Header Section -->
             <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
@@ -96,25 +99,6 @@
             </div>
         </main>
     </div>
-    <!-- BottomNavBar (Mobile Only) -->
-    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-white dark:bg-slate-900 shadow-[0px_-10px_30px_rgba(0,0,0,0.05)] rounded-t-xl z-50">
-        <button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-orange-500 transition-all active:translate-y-1 duration-300">
-            <span class="material-symbols-outlined">grid_view</span>
-            <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold tracking-wide uppercase mt-1">Dashboard</span>
-        </button>
-        <button class="flex flex-col items-center justify-center bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400 rounded-full px-5 py-2 active:translate-y-1 duration-300">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
-            <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold tracking-wide uppercase mt-1">Schedule</span>
-        </button>
-        <button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-orange-500 transition-all active:translate-y-1 duration-300">
-            <span class="material-symbols-outlined">chat_bubble</span>
-            <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold tracking-wide uppercase mt-1">Inbox</span>
-        </button>
-        <button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-orange-500 transition-all active:translate-y-1 duration-300">
-            <span class="material-symbols-outlined">person</span>
-            <span class="font-['Plus_Jakarta_Sans'] text-[10px] font-semibold tracking-wide uppercase mt-1">Account</span>
-        </button>
-    </nav>
 </body>
 
 </html>
