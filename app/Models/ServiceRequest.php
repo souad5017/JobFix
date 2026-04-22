@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceRequest extends Model
 {
-      use HasFactory;
+    use HasFactory;
+
     protected $fillable = [
         'client_id',
         'professional_id',
         'description',
         'status',
+        'progress',
         'scheduled_at'
     ];
 

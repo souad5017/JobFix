@@ -49,13 +49,14 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('profile.complete');
     Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
         ->name('professional.profile.store');
-        
+
     Route::get('/requests', [ServiceController::class, 'index'])
     ->name('professional.services');
-    Route::get('/requests/{request}', [ServiceController::class, 'show'])
+    Route::get('/requests/{serviceRequest}', [ServiceController::class, 'show'])
     ->name('requests.show');
 
-    Route::post('/requests/{request}/status/{status}', [ServiceController::class, 'updateStatus']);
+    Route::post('/requests/{serviceRequest}/status/{status}', [ServiceController::class, 'updateStatus'])
+    ->name('requests.update');
 });
 
 require __DIR__ . '/auth.php';

@@ -8,27 +8,47 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-
+  
     public function index()
     {
-        $requests = ServiceRequest::where('professional_id', auth()->user()->professional->id)->get();
+        $requests = ServiceRequest::where('professional_id', auth()->user()->professional->id)
+            ->latest()
+            ->get();
 
         return view('professional.services', compact('requests'));
     }
-    public function updateStatus(ServiceRequest $request, $status)
-    {
-        $this->authorize('update', $request);
 
-        $request->update([
-            'status' => $status
+    public function show(ServiceRequest $serviceRequest)
+    {
+        $this->authorize('view', $serviceRequest);
+
+        return view('professional.show_services', [
+            'request' => $serviceRequest
         ]);
-
-        return back();
     }
-    public function show(ServiceRequest $request)
-    {
-        $this->authorize('view', $request);
 
-        return view('professional.show_services', compact('request'));
+ public function updateStatus(ServiceRequest $serviceRequest, $status)
+{
+    $this->authorize('update', $serviceRequest);
+
+    $allowedStatus = ['pending', 'accepted', 'rejected'];
+    
+    if (!in_array($status, $allowedStatus)) {
+        abort(400, 'Statut invalide');
     }
+
+    $updateData = ['status' => $status];
+
+    if ($status === 'accepted') {
+        $updateData['progress'] = 'in_progress';
+    } elseif ($status === 'rejected') {
+        $updateData['progress'] = 'not_started';
+    }
+
+    $serviceRequest->update($updateData);
+
+    $message = $status === 'accepted' ? 'Demande acceptée et travail lancé !' : 'Statut mis à jour.';
+    
+    return back()->with('success', $message);
+}
 }
