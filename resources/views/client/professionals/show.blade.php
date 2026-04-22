@@ -65,8 +65,6 @@
                                     <div class="p-8 pt-0 space-y-6">
                                         <form method="POST" action="{{ route('service.request.store', $professional->id) }}">
                                             @csrf
-
-                                            <!-- Professional info (غير عرض) -->
                                             <div class="bg-slate-50 p-4 rounded-2xl flex items-center gap-4 border border-slate-100">
                                                 <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-black">
                                                     {{ substr($professional->user->name, 0, 1) }}
@@ -78,7 +76,6 @@
                                                 </div>
                                             </div>
 
-                                            <!-- hidden id ديال professional -->
                                             <input type="hidden" name="professional_id" value="{{ $professional->id }}">
 
                                             <!-- Type -->

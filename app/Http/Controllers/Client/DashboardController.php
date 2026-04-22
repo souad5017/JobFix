@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Favorite;
+use App\Models\Professional;
 use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 
@@ -21,10 +22,13 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $professionals = Professional::paginate(3);
+
         return view('client.dashboard', compact(
             'requestsCount',
             'favoritesCount',
-            'recentRequests'
+            'recentRequests',
+            'professionals'
         ));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Professional;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,11 @@ class ServiceController extends Controller
     {
         $this->authorize('view', $serviceRequest);
 
+        $payment = Payment::where('service_request_id' , $serviceRequest->id)->first();
+
         return view('professional.show_services', [
-            'request' => $serviceRequest
+            'request' => $serviceRequest , 
+            'payment' =>  $payment 
         ]);
     }
 

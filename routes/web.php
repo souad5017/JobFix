@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\ServiceRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Professional\ProfileController as ProfessionalProfileController;
 use App\Http\Controllers\Professional\ServiceController;
 
@@ -32,7 +33,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/professionals/{id}', [ProfessionalController::class, 'show'])
         ->name('client.professionals.show');
- 
+
     Route::post('/service-request/{professionalId}', [ServiceRequestController::class, 'store'])
         ->name('service.request.store');
 });
@@ -51,12 +52,20 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('professional.profile.store');
 
     Route::get('/requests', [ServiceController::class, 'index'])
-    ->name('professional.services');
+        ->name('professional.services');
     Route::get('/requests/{serviceRequest}', [ServiceController::class, 'show'])
-    ->name('requests.show');
+        ->name('requests.show');
 
     Route::post('/requests/{serviceRequest}/status/{status}', [ServiceController::class, 'updateStatus'])
-    ->name('requests.update');
+        ->name('requests.update');
+
+    Route::post(
+        '/requests/{serviceRequest}/price',
+        [PaymentController::class, 'store']
+    )->name('payment.store');
+
+    Route::post('/requests/{serviceRequest}/price/update',[PaymentController::class, 'update']
+    )->name('payment.update');
 });
 
 require __DIR__ . '/auth.php';
