@@ -123,7 +123,8 @@
                         <div class="space-y-4">
                             <div class="relative">
                                 <label class="absolute -top-2 left-4 bg-surface-container-lowest px-2 text-[10px] font-bold text-primary uppercase">Estimated Price</label>
-                                <input class="w-full bg-surface-container-high border-none rounded-lg p-5 text-xl font-bold text-on-surface focus:ring-2 focus:ring-primary-container transition-all" type="text" value="{{ $request->price ?? '0.00' }} MAD" />
+                                <input class="w-full bg-surface-container-high border-none rounded-lg p-5 text-xl font-bold text-on-surface focus:ring-2 focus:ring-primary-container transition-all" 
+                                type="text" value="{{ $request->price ?? '0.00' }} MAD" />
                             </div>
                             @if ($request->progress != 'completed')
                              <button class="w-full py-4 rounded-full bg-primary-container text-on-primary-container font-bold hover:shadow-xl transition-all">
