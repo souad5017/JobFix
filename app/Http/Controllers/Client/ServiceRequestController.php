@@ -8,14 +8,25 @@ use Illuminate\Http\Request;
 
 class ServiceRequestController extends Controller
 {
-   public function store(Request $request, $professionalId)
-{
-    ServiceRequest::create([
-        'client_id' => auth()->id(),
-        'professional_id' => $professionalId,
-        'description' => $request->description,
-    ]);
+      public function myRequests()
+    {
+        $requests = ServiceRequest::with(['professional.user', 'payment'])
+            ->where('client_id', auth()->id())
+            ->latest()
+            ->get();
 
-    return back()->with('success', 'Request sent successfully');
-}
+        return view('client.my_requests', compact('requests'));
+    }
+    public function store(Request $request, $professionalId)
+    {
+        ServiceRequest::create([
+            'client_id' => auth()->id(),
+            'professional_id' => $professionalId,
+            'title' => $request->title,
+            'description' => $request->description,
+            'scheduled_at'=> $request->scheduled_at
+        ]);
+
+        return back()->with('success', 'Request sent successfully');
+    }
 }

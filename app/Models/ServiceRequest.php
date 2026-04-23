@@ -12,7 +12,9 @@ class ServiceRequest extends Model
     protected $fillable = [
         'client_id',
         'professional_id',
+        'title',
         'description',
+        'image',
         'status',
         'progress',
         'scheduled_at'

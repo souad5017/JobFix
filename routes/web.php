@@ -36,6 +36,9 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::post('/service-request/{professionalId}', [ServiceRequestController::class, 'store'])
         ->name('service.request.store');
+
+    Route::get('/my-requests', [ServiceRequestController::class, 'myRequests'])
+        ->name('client.requests');
 });
 
 

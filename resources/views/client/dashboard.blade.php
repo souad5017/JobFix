@@ -68,7 +68,7 @@
                             Recommended Pros for you
                         </h2>
 
-                        <a href="/professionals" class="text-orange-600 font-bold text-sm cursor-pointer">
+                        <a href="{{ route('client.professionals.index') }}" class="text-orange-600 font-bold text-sm cursor-pointer">
                             Voir plus
                         </a>
                     </div>

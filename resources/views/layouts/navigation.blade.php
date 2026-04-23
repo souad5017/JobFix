@@ -13,7 +13,7 @@
                     <x-nav-link href="{{ route('client.professionals.index') }}" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
                         Trouver un Pro
                     </x-nav-link>
-                    <x-nav-link href="#" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
+                    <x-nav-link href="{{ route('client.requests') }}" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
                         Mes Demandes
                     </x-nav-link>
                 </div>
