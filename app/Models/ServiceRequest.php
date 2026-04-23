@@ -19,6 +19,10 @@ class ServiceRequest extends Model
         'progress',
         'scheduled_at'
     ];
+    protected $casts = [
+        'scheduled_at' => 'datetime',
+        'created_at' => 'datetime',
+    ];
 
     public function client()
     {
