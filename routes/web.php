@@ -39,6 +39,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/my-requests', [ServiceRequestController::class, 'myRequests'])
         ->name('client.requests');
+    Route::get('/client/requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
+        ->name('client.requests.show');
 });
 
 
@@ -67,7 +69,9 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         [PaymentController::class, 'store']
     )->name('payment.store');
 
-    Route::post('/requests/{serviceRequest}/price/update',[PaymentController::class, 'update']
+    Route::post(
+        '/requests/{serviceRequest}/price/update',
+        [PaymentController::class, 'update']
     )->name('payment.update');
 });
 

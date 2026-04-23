@@ -29,12 +29,6 @@
                         <div class="w-full md:w-auto">
                             <button
                                 @click="openModal(
-        {{ $professional->id }},
-        '{{ $professional->name }}',
-        '{{ $professional->email ?? '' }}',
-        '{{ $professional->city ?? '' }}',
-        '{{ $professional->specialty ?? '' }}'
-    )"
                                 class="bg-orange-500 text-white px-4 py-2 rounded-xl">
                                 Demander un service
                             </button>
@@ -122,7 +116,6 @@
                         </div>
                     </div>
                 </div>
-                <livewire:service-request-modal />
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="space-y-6">
                         <div class="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm">
@@ -162,29 +155,5 @@
         </div>
 
 
-        <script>
-            function modalData() {
-                return {
-                    show: false,
-                    id: null,
-                    name: '',
-                    email: '',
-                    city: '',
-                    category: '',
-
-                    openModal(id, name, email, city, category) {
-                        this.show = true;
-                        this.id = id;
-                        this.name = name;
-                        this.email = email;
-                        this.city = city;
-                        this.category = category;
-                    },
-
-                    closeModal() {
-                        this.show = false;
-                    }
-                }
-            }
-        </script>
+        
 </x-app-layout>

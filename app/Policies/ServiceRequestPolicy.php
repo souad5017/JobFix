@@ -39,15 +39,16 @@ class ServiceRequestPolicy
      */
     public function update(User $user, ServiceRequest $request)
     {
-        return $user->id === $request->professional->user_id;
+        return $user->id === $request->professional->user_id
+        ||  $user->id === $request->client_id ;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, ServiceRequest $serviceRequest): bool
+    public function delete(User $user, ServiceRequest $request): bool
     {
-        return false;
+        return  $user->id === $request->client_id; 
     }
 
     /**
@@ -61,8 +62,8 @@ class ServiceRequestPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, ServiceRequest $serviceRequest): bool
+    public function forceDelete(User $user, ServiceRequest $request): bool
     {
-        return false;
+        return  $user->id === $request->client_id; 
     }
 }

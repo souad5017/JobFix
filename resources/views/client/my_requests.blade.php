@@ -115,7 +115,8 @@
                                 <span class="material-symbols-outlined" data-icon="chat">chat</span>
                             </button>
                             @endif
-                            <button class="px-6 py-3 rounded-full bg-primary-container text-white font-bold hover:scale-105 active:scale-95 transition-all">Voir détails</button>
+                            <a href="{{ route('client.requests.show' , $request->id) }}" class="px-6 py-3 rounded-full bg-primary-container text-white font-bold hover:scale-105 active:scale-95 transition-all">
+                                Voir détails</a>
                         </div>
                     </div>
                 </div>

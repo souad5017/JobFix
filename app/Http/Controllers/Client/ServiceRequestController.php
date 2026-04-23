@@ -17,8 +17,7 @@ class ServiceRequestController extends Controller
             ->get();
 
 
-        $requestsCount = ServiceRequest::where('progress' , 'completed')
-        ->with('professional.user')
+        $requestsCount = ServiceRequest::where('progress', 'completed')
             ->where('client_id', auth()->id())
             ->count();
 
@@ -33,18 +32,40 @@ class ServiceRequestController extends Controller
             ->sum('amount');
 
         // dd($amountSum);
-        return view('client.my_requests', compact('requests' , 'amountSum' , 'requestsCount' , 'requestsTotals'));
+        return view('client.my_requests', compact('requests', 'amountSum', 'requestsCount', 'requestsTotals'));
     }
     public function store(Request $request, $professionalId)
     {
+        $this->authorize('view', $request);
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'scheduled_at' => 'nullable|date',
+        ]);
+
         ServiceRequest::create([
             'client_id' => auth()->id(),
             'professional_id' => $professionalId,
             'title' => $request->title,
+            'image'=> $request->image,
             'description' => $request->description,
             'scheduled_at' => $request->scheduled_at
         ]);
 
+
         return back()->with('success', 'Request sent successfully');
+    }
+
+    public function show(ServiceRequest $serviceRequest)
+    {
+        $this->authorize('view', $serviceRequest);
+        if ($serviceRequest->client_id !== auth()->id()) {
+            abort(403);
+        }
+        // dd($serviceRequest);
+
+        return view('client.show_service', [
+            'request' => $serviceRequest
+        ]);
     }
 }

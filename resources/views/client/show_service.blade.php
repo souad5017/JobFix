@@ -1,0 +1,175 @@
+<x-app-layout>
+    <main class="max-w-7xl mx-auto px-8 py-10">
+        <!-- Back Button -->
+        <a class="inline-flex items-center text-on-surface-variant hover:text-[#F37021] transition-colors mb-8 group" href="{{ route('client.requests') }}">
+            <span class="material-symbols-outlined mr-2 group-hover:-translate-x-1 transition-transform">arrow_back</span>
+            <span class="font-semibold">Retour à mes demandes</span>
+        </a>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- Request Header -->
+                <header class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/15">
+                    <div class="flex flex-wrap justify-between items-start gap-4">
+                        <div>
+                            <h1 class="text-4xl font-extrabold text-on-surface leading-tight tracking-tight">{{ $request->title }}</h1>
+                        </div>
+
+                        @if($request->status === 'pending')
+                        <div class="bg-[#F37021]/10 text-[#F37021] px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                            <span class="w-2 h-2 bg-[#F37021] rounded-full mr-2 animate-pulse"></span>
+                            En attente
+                        </div>
+
+                        @elseif($request->status === 'accepted')
+                        @if ($request->progress === 'in_progress')
+                        <div class="bg-[#F37021]/10 text-blue-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                            <span class="w-2 h-2 bg-blue-600 rounded-full mr-2 animate-pulse"></span>
+                            In Progress
+                        </div>
+                        @elseif($request->progress === 'completed')
+                        <div class="bg-[#F37021]/10 text-emerald-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                            <span class="w-2 h-2 bg-emerald-600 rounded-full mr-2 animate-pulse"></span>
+                            Terminé
+                        </div>
+
+                        @endif
+
+                        @elseif($request->status === 'rejected')
+                        <div class="bg-[#F37021]/10 text-rose-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                            <span class="w-2 h-2 bg-rose-600 rounded-full mr-2 animate-pulse"></span>
+                            Rejeté
+                        </div>
+                        @endif
+                    </div>
+                </header>
+                <!-- Service Details Section -->
+                <section class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/15">
+                    <div class="p-8">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <span class="material-symbols-outlined mr-3 text-[#F37021]">description</span>
+                            Détails de l'intervention
+                        </h2>
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            @if ($request->status === 'accepted')
+                            @if ($request->progress === 'in_progress')
+                            <div class="space-y-4">
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">calendar_today</span>
+
+                                    <span class="font-medium text-on-surface">
+                                        {{ $request->scheduled_at->format('D d M Y ') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">schedule</span>
+                                    <span class="font-medium text-on-surface"> {{ $request->scheduled_at->format(' h:i A') }}</span>
+                                </div>
+
+                            </div>
+                            @elseif($request->progress === 'completed')
+                            <div class="space-y-4">
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">calendar_today</span>
+
+                                    <span class="font-medium text-on-surface">Terminé le
+                                        {{ $request->scheduled_at->format('D d M Y ') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">schedule</span>
+                                    <span class="font-medium text-on-surface"> {{ $request->scheduled_at->format(' h:i A') }}</span>
+                                </div>
+
+                            </div>
+                            @endif
+                            @else
+                            <div class="space-y-4">
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">calendar_today</span>
+
+                                    <span class="font-medium text-on-surface">Posté le
+                                        {{ $request->created_at->format('D d M Y ') }}
+                                    </span>
+                                </div>
+                                <div class="flex items-center text-on-surface-variant">
+                                    <span class="material-symbols-outlined mr-3 text-[#F37021]">schedule</span>
+                                    <span class="font-medium text-on-surface"> {{ $request->created_at->format(' h:i A') }}</span>
+                                </div>
+
+                            </div>
+                            @endif
+
+                            <div class="bg-surface-container-low p-6 rounded-lg">
+                                <p class="text-on-surface leading-relaxed italic">
+                                    "{{ $request->description }}"
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Gallery -->
+                        <div class="space-y-4">
+                            <h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Photos jointes</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                @if(!empty($request->images))
+                                @foreach($request->images as $img)
+                                <div class="aspect-square rounded-lg overflow-hidden relative group cursor-pointer">
+                                    <img src="{{ asset('storage/'.$img) }}"
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                </div>
+                                @endforeach
+                                @endif
+                                <div class="aspect-square rounded-lg overflow-hidden relative group cursor-pointer bg-surface-container-high flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/30">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-3xl mb-2">add_a_photo</span>
+                                    <span class="text-xs font-bold text-on-surface-variant">Ajouter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4 space-y-8">
+                <!-- Professional Information Card -->
+                <div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/15 text-center">
+                    <div class="relative w-24 h-24 mx-auto mb-4">
+                        <img src=" {{ 'storage/'.$request->professional->image }}" class="w-full h-full object-cover rounded-full" data-alt="professional male contractor in blue work shirt smiling confidently with short hair and clean look" />
+                        <div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-4 border-white rounded-full"></div>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface">{{ $request->professional->name }}</h3>
+                    <p class="text-on-surface-variant text-sm mb-4">{{ $request->professional->category->name }} • {{$request->professional->user->city}}</p>
+                    <button class="w-full bg-[#F37021] text-white py-4 px-6 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[#F37021]/20">
+                        <span class="material-symbols-outlined">chat_bubble</span>
+                        Contacter
+                    </button>
+                </div>
+                <!-- Action Sidebar -->
+                <div class="bg-surface-container-low rounded-lg p-6 space-y-4">
+                    <h4 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-2 px-2">Actions Rapides</h4>
+                    <button class="w-full bg-surface-container-lowest text-on-surface py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-white transition-colors group">
+                        <span class="flex items-center">
+                            <span class="material-symbols-outlined mr-3 text-[#F37021]">edit</span>
+                            Modifier la demande
+                        </span>
+                        <span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+                    </button>
+                    <button class="w-full text-error py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-error/5 transition-colors group">
+                        <span class="flex items-center">
+                            <span class="material-symbols-outlined mr-3">cancel</span>
+                            Annuler la demande
+                        </span>
+                    </button>
+                </div>
+                <!-- Map Preview (Contextual Identity) -->
+                <div class="rounded-lg overflow-hidden h-48 relative border border-outline-variant/15 shadow-sm">
+                    <img class="w-full h-full object-cover grayscale opacity-80" data-alt="abstract top down map view of urban city streets in shades of gray and blue with high contrast" data-location="Paris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEpnFHB0ZciRcXu8Ms59QoJaf3Lu0Z5-wKIx315iKIV2ChZpROhvFS1fP6rMMg53bNKG5b6Ghow_DSC14aOjQzYXlCGYiI2vzlaVSbfPCGu_wsp62-KnvdFfpjfRzNas_1rkiSIzMzg_e2Eb-uLPhshyOefqHo5QIv_l3CB1vaWVKVaYXCLKj8ykNE9QEYkSBlrV6bF54UoHpzWYdTpyfLZPFWrcC4tZdauk1VM4ovP0gwVnbPHH4kfZZpwb7S39ZEgHAQut6FxyOy" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 flex items-center text-white">
+                        <span class="material-symbols-outlined text-[#F37021] mr-2" style="font-variation-settings: 'FILL' 1;">location_on</span>
+                        <span class="text-xs font-bold uppercase tracking-wider">Zone de l'intervention</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+</x-app-layout>
