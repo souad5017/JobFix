@@ -155,5 +155,27 @@
         </div>
 
 
-        
+
+
+
+
+
+
+
+        <div>
+            <p class="text-[10px] uppercase tracking-widest text-secondary font-label mb-3">Direct Contact</p>
+            <div class="flex flex-col gap-2">
+                <a class="flex items-center gap-3 text-secondary hover:text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined text-sm">mail</span>
+                    <span class="text-sm">marcus.chen@jobfix.pro</span>
+                </a>
+                <a class="flex items-center gap-3 text-secondary hover:text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined text-sm">phone_iphone</span>
+                    <span class="text-sm">(415) 555-0128</span>
+                </a>
+            </div>
+        </div>
+
+
+
 </x-app-layout>
