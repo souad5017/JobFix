@@ -47,6 +47,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::put('/service-request/{id}',[ServiceRequestController::class, 'update']
     )->name('service.update');
+
+    Route::delete('/services/{service}', [ServiceRequestController::class, 'destroy'])->name('services.destroy');
 });
 
 

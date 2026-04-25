@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class ServiceRequestController extends Controller
 {
     public function myRequests()
@@ -153,5 +153,17 @@ class ServiceRequestController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Request updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $service = ServiceRequest::findOrFail($id);
+        foreach ($service->images ?? [] as $image) {
+            Storage::delete($image);
+        }
+
+        $service->delete();
+
+        return redirect()->route('client.requests')->with('success', 'Service deleted successfully');
     }
 }
