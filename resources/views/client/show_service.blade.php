@@ -110,10 +110,10 @@
                         <div class="space-y-4">
                             <h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Photos jointes</h3>
                             <div class="grid grid-cols-3 gap-4">
-                                @if(!empty($request->images))
-                                @foreach($request->images as $img)
+                                @if(!empty($request->image))
+                                @foreach($request->image ?? [] as $img)
                                 <div class="aspect-square rounded-lg overflow-hidden relative group cursor-pointer">
-                                    <img src="{{ asset('storage/'.$img) }}"
+                                    <img src="{{ asset($img) }}"
                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                                 </div>
                                 @endforeach
@@ -132,10 +132,10 @@
                 <!-- Professional Information Card -->
                 <div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/15 text-center">
                     <div class="relative w-24 h-24 mx-auto mb-4">
-                        <img src=" {{ 'storage/'.$request->professional->image }}" class="w-full h-full object-cover rounded-full" data-alt="professional male contractor in blue work shirt smiling confidently with short hair and clean look" />
+                        <img src=" {{ 'storage/'.$request->professional->image}}" class="w-full h-full object-cover rounded-full" data-alt="professional male contractor in blue work shirt smiling confidently with short hair and clean look" />
                         <div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-4 border-white rounded-full"></div>
                     </div>
-                    <h3 class="text-xl font-bold text-on-surface">{{ $request->professional->name }}</h3>
+                    <h3 class="text-xl font-bold text-on-surface">{{ $request->professional->user->name }}</h3>
                     <p class="text-on-surface-variant text-sm mb-4">{{ $request->professional->category->name }} • {{$request->professional->user->city}}</p>
                     <button class="w-full bg-[#F37021] text-white py-4 px-6 rounded-full font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[#F37021]/20">
                         <span class="material-symbols-outlined">chat_bubble</span>
@@ -158,15 +158,6 @@
                             Annuler la demande
                         </span>
                     </button>
-                </div>
-                <!-- Map Preview (Contextual Identity) -->
-                <div class="rounded-lg overflow-hidden h-48 relative border border-outline-variant/15 shadow-sm">
-                    <img class="w-full h-full object-cover grayscale opacity-80" data-alt="abstract top down map view of urban city streets in shades of gray and blue with high contrast" data-location="Paris" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEpnFHB0ZciRcXu8Ms59QoJaf3Lu0Z5-wKIx315iKIV2ChZpROhvFS1fP6rMMg53bNKG5b6Ghow_DSC14aOjQzYXlCGYiI2vzlaVSbfPCGu_wsp62-KnvdFfpjfRzNas_1rkiSIzMzg_e2Eb-uLPhshyOefqHo5QIv_l3CB1vaWVKVaYXCLKj8ykNE9QEYkSBlrV6bF54UoHpzWYdTpyfLZPFWrcC4tZdauk1VM4ovP0gwVnbPHH4kfZZpwb7S39ZEgHAQut6FxyOy" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 flex items-center text-white">
-                        <span class="material-symbols-outlined text-[#F37021] mr-2" style="font-variation-settings: 'FILL' 1;">location_on</span>
-                        <span class="text-xs font-bold uppercase tracking-wider">Zone de l'intervention</span>
-                    </div>
                 </div>
             </aside>
         </div>

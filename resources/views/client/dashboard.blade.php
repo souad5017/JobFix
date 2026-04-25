@@ -33,7 +33,7 @@
             <section class="xl:col-span-2 m-10">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-2xl font-bold text-on-surface">Active Requests</h2>
-                    <a href="#" class="text-orange-600 font-bold text-sm cursor-pointer">Tout voir</a>
+                    <a href="{{ route('client.requests') }}" class="text-orange-600 font-bold text-sm cursor-pointer">Tout voir</a>
                 </div>
                 <div class="space-y-4">
 
@@ -41,7 +41,7 @@
                     <div class="bg-surface-container-lowest p-6 rounded-lg flex items-center gap-6 shadow-[0px_10px_20px_rgba(0,0,0,0.02)] group hover:shadow-lg transition-shadow">
                         <div class="w-16 h-16 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
                             <img alt="Service Provider" data-alt="Close up of a professional plumber working on a silver kitchen faucet, bright daylight, focused task"
-                                src="{{ $request->professional->image }}" />
+                                src="{{ asset('storage/'.$request->professional->image) }}" />
                         </div>
                         <div class="flex-1">
                             <div class="flex justify-between items-start mb-1">

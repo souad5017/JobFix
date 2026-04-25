@@ -34,13 +34,19 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/professionals/{id}', [ProfessionalController::class, 'show'])
         ->name('client.professionals.show');
 
-    Route::post('/service-request/{professionalId}', [ServiceRequestController::class, 'store'])
-        ->name('service.request.store');
+    // Route::post('/service-request/{professionalId}', [ServiceRequestController::class, 'store'])
+    //     ->name('service.request.store');
 
     Route::get('/my-requests', [ServiceRequestController::class, 'myRequests'])
         ->name('client.requests');
     Route::get('/client/requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
         ->name('client.requests.show');
+
+    Route::post('/service-request/{professionalId}',[ServiceRequestController::class, 'store']
+    )->name('service.store');
+
+    Route::put('/service-request/{id}',[ServiceRequestController::class, 'update']
+    )->name('service.update');
 });
 
 

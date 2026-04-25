@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Professional;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Professional;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -32,9 +33,13 @@ class ProfileController extends Controller
 
         Professional::create([
             'user_id' => auth()->id(),
-            'image' => $imagePath,
             'category_id' => $request->category_id,
             'description' => $request->description,
+           
+        ]);
+
+        User::update([
+            'image' => $imagePath,
             'city' => $request->city,
             'phone' => $request->phone,
         ]);

@@ -131,7 +131,7 @@
                                 @if ($request->progress != 'completed')
 
 
-                                @if ($payment->amount <= 0 || $payment->amount == null)
+                                @if (isset($payment->amount) <= 0 || isset($payment->amount))
 
                                     <button @click="openModal(false)"
                                         class="w-full py-4 rounded-full bg-primary-container text-on-primary-container font-bold hover:shadow-xl transition-all">

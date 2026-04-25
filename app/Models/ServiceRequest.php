@@ -20,7 +20,7 @@ class ServiceRequest extends Model
         'scheduled_at'
     ];
     protected $casts = [
-        'images' => 'array',
+        'image' => 'array',
         'scheduled_at' => 'datetime',
         'created_at' => 'datetime',
     ];

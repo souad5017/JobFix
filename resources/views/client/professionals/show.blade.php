@@ -6,7 +6,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
             </svg>
-            Retour à la liste
+            Retour à la liste 
         </a>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <!-- Profile Hero Section (Asymmetric Editorial Style) -->
@@ -15,6 +15,7 @@
                     <div class="aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-xl bg-surface-container">
                         <img alt="Artisan Portrait" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Experienced professional carpenter in a sunlit workshop, high-quality portrait showing confidence and artisan craft tools in background"
                             src="{{ asset('storage/'.$professional->image) }}" />
+                       
                     </div>
                     <!-- Floating Badge -->
                     <div class="absolute -bottom-6 right-6 bg-white p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] flex items-center gap-4">
@@ -104,7 +105,8 @@
                     {{-- Actions --}}
                     <div class="mt-10">
 
-                        <button class="w-full bg-primary-container hover:bg-primary text-on-primary font-bold py-5 px-8 rounded-full transition-all flex items-center justify-center gap-3 active:scale-95 shadow-lg shadow-primary-container/20">
+                        <button onclick="openCreate()"
+                            class="w-full bg-primary-container hover:bg-primary text-on-primary font-bold py-5 px-8 rounded-full flex items-center justify-center gap-3">
                             Request Service
                             <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
@@ -113,8 +115,9 @@
                 </div>
 
             </aside>
+            @include('client.modale.create')
         </div>
     </div>
-
+   
 
 </x-app-layout>

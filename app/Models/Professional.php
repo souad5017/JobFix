@@ -12,9 +12,6 @@ class Professional extends Model
         'user_id',
         'category_id',
         'description',
-        'image',
-        'phone',
-        'city'
     ];
 
     public function user()
