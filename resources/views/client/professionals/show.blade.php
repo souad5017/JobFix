@@ -6,7 +6,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
             </svg>
-            Retour à la liste 
+            Retour à la liste
         </a>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <!-- Profile Hero Section (Asymmetric Editorial Style) -->
@@ -15,7 +15,7 @@
                     <div class="aspect-[4/5] md:aspect-[16/10] overflow-hidden rounded-xl bg-surface-container">
                         <img alt="Artisan Portrait" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Experienced professional carpenter in a sunlit workshop, high-quality portrait showing confidence and artisan craft tools in background"
                             src="{{ asset('storage/'.$professional->image) }}" />
-                       
+
                     </div>
                     <!-- Floating Badge -->
                     <div class="absolute -bottom-6 right-6 bg-white p-6 rounded-lg shadow-[0px_20px_40px_rgba(25,28,30,0.06)] flex items-center gap-4">
@@ -118,6 +118,79 @@
             @include('client.modale.create')
         </div>
     </div>
-   
+
+    <script>
+        //create
+
+        function openCreate() {
+            document.getElementById('createModal').classList.remove('hidden');
+        }
+
+        function closeCreate() {
+            document.getElementById('createModal').classList.add('hidden');
+        }
+
+        let selectedFiles = [];
+
+        const input = document.getElementById('imagesInputCreate');
+        const preview = document.getElementById('previewCreate');
+
+        input.addEventListener('change', function(e) {
+
+            Array.from(e.target.files).forEach(file => {
+                selectedFiles.push(file);
+            });
+
+            renderPreview();
+        });
+
+        function renderPreview() {
+            preview.innerHTML = "";
+
+            selectedFiles.forEach((file, index) => {
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = "relative group";
+
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.className = "w-20 h-20 object-cover rounded-lg border";
+
+                    const btn = document.createElement('button');
+                    btn.innerHTML = "✕";
+                    btn.type = "button";
+                    btn.className = "absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition";
+
+                    btn.onclick = () => {
+                        selectedFiles.splice(index, 1);
+                        renderPreview();
+                    };
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(btn);
+
+                    preview.appendChild(wrapper);
+                };
+
+                reader.readAsDataURL(file);
+            });
+
+            updateInputFiles();
+        }
+
+        function updateInputFiles() {
+            const dataTransfer = new DataTransfer();
+
+            selectedFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+
+            input.files = dataTransfer.files;
+        }
+    </script>
 
 </x-app-layout>

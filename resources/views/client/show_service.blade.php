@@ -145,12 +145,11 @@
                 <!-- Action Sidebar -->
                 <div class="bg-surface-container-low rounded-lg p-6 space-y-4">
                     <h4 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-2 px-2">Actions Rapides</h4>
-                    <button class="w-full bg-surface-container-lowest text-on-surface py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-white transition-colors group">
+                    <button onclick="openUpdate()" class="w-full bg-surface-container-lowest text-on-surface py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-white transition-colors group">
                         <span class="flex items-center">
                             <span class="material-symbols-outlined mr-3 text-[#F37021]">edit</span>
                             Modifier la demande
                         </span>
-                        <span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
                     </button>
                     <button class="w-full text-error py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-error/5 transition-colors group">
                         <span class="flex items-center">
@@ -161,6 +160,101 @@
                 </div>
             </aside>
         </div>
+        @include('client.modale.updete')
     </main>
+
+
+
+
+    <script>
+        //update
+        let selectedFilesUpdate = [];
+
+        function openUpdate() {
+            document.getElementById('updateModal').classList.remove('hidden');
+        }
+
+        function closeUpdate() {
+            document.getElementById('updateModal').classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const container = document.getElementById('imagesContainer');
+            if (container) {
+                document.getElementById('imagesBackup').value = container.innerHTML;
+            }
+
+            const input = document.getElementById('imagesInput');
+
+            if (input) {
+                input.addEventListener('change', function(e) {
+                    Array.from(e.target.files).forEach(file => {
+                        selectedFilesUpdate.push(file);
+                    });
+
+                    renderPreview();
+                });
+            }
+        });
+
+        function renderPreview() {
+            const preview = document.getElementById('previewUpdate');
+            preview.innerHTML = '';
+
+            selectedFilesUpdate.forEach((file, index) => {
+
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = "relative group";
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = "w-20 h-20 object-cover rounded-lg border";
+
+                    const btn = document.createElement('button');
+                    btn.innerHTML = "✕";
+                    btn.type = "button";
+                    btn.className = "absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition";
+
+                    btn.onclick = () => {
+                        selectedFilesUpdate.splice(index, 1);
+                        renderPreview();
+                    };
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(btn);
+                    preview.appendChild(wrapper);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function markImageForDeletion(btn) {
+            const wrapper = btn.closest('.old-image-wrapper');
+            wrapper.classList.add('hidden');
+
+            const input = wrapper.querySelector('input[name="old_images[]"]');
+            if (input) input.disabled = true;
+        }
+
+        function resetImages() {
+            const container = document.getElementById('imagesContainer');
+            const backup = document.getElementById('imagesBackup').value;
+
+            if (container) {
+                container.innerHTML = backup;
+            }
+
+            document.getElementById('previewUpdate').innerHTML = '';
+            document.getElementById('imagesInput').value = '';
+
+            selectedFilesUpdate = [];
+        }
+    </script>
 
 </x-app-layout>

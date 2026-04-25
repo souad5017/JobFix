@@ -71,13 +71,11 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('requests.update');
 
     Route::post(
-        '/requests/{serviceRequest}/price',
-        [PaymentController::class, 'store']
+        '/requests/{serviceRequest}/price',[PaymentController::class, 'store']
     )->name('payment.store');
 
     Route::post(
-        '/requests/{serviceRequest}/price/update',
-        [PaymentController::class, 'update']
+        '/requests/{serviceRequest}/price/update',[PaymentController::class, 'update']
     )->name('payment.update');
 });
 

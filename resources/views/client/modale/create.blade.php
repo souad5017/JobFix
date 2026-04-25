@@ -19,7 +19,8 @@
             <!-- Recipient Profile Card -->
             <div class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg">
                 <div class="relative">
-                    <img class="w-14 h-14 rounded-full object-cover" data-alt="professional portrait of a middle aged man in a blue work shirt smiling confidently with neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEi09125ns9Fgmd36i98_mDZEqVcC7Cy3De6B9H71IJwm217mjb9nxkymDTQg7YrB6f2wqYs0kx_h9RcEExDjDrfG77NOi9nolV-NrAnSzcKjq9Wh01s7tQliSVvLlOf5xNq2_y747l2IjvWcLmVjTw1r_1rkUoGAdoI0RoMi7Cf_xC6JsMzrR1oUjjjw7doSVCY-FL_nwmMsp8_24lYfFZ95E7BN-w-aFV_A5sKaW84VQfeFBBvAYH4RfM1NXgW0HaA5tbpWRSR9C" />
+                    <img class="w-14 h-14 rounded-full object-cover" data-alt="professional portrait of a middle aged man in a blue work shirt smiling confidently with neutral background" 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEi09125ns9Fgmd36i98_mDZEqVcC7Cy3De6B9H71IJwm217mjb9nxkymDTQg7YrB6f2wqYs0kx_h9RcEExDjDrfG77NOi9nolV-NrAnSzcKjq9Wh01s7tQliSVvLlOf5xNq2_y747l2IjvWcLmVjTw1r_1rkUoGAdoI0RoMi7Cf_xC6JsMzrR1oUjjjw7doSVCY-FL_nwmMsp8_24lYfFZ95E7BN-w-aFV_A5sKaW84VQfeFBBvAYH4RfM1NXgW0HaA5tbpWRSR9C" />
                 </div>
                 <div>
                     <p class="text-xs font-bold text-orange-600 uppercase tracking-widest mb-0.5">{{ $professional->category->name }}</p>
@@ -88,8 +89,8 @@
                     <label class="block text-sm font-bold text-on-surface">Ajouter des photos</label>
 
                     <!-- Hidden input -->
-                    <input type="file" name="images[]" id="imagesInput" multiple class="hidden">
-                    <div onclick="document.getElementById('imagesInput').click()"
+                    <input type="file" name="images[]" id="imagesInputCreate" multiple class="hidden">
+                    <div onclick="document.getElementById('imagesInputCreate').click()"
                         class="border-2 border-dashed border-outline-variant/30 rounded-xl p-8 flex flex-col items-center justify-center bg-surface-container-low/50 hover:bg-surface-container-low transition-colors cursor-pointer group">
 
                         <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
@@ -99,7 +100,7 @@
                         <p class="text-sm font-semibold text-on-surface">Cliquez pour téléverser</p>
                         <p class="text-xs text-secondary mt-1">PNG, JPG jusqu'à 10MB</p>
                     </div>
-                    <div id="preview" class="flex gap-3 mt-3 flex-wrap"></div>
+                    <div id="previewCreate" class="flex gap-3 mt-3 flex-wrap"></div>
                 </div>
             </div>
             <!-- Footer Actions -->

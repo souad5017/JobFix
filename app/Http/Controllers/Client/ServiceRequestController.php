@@ -34,6 +34,21 @@ class ServiceRequestController extends Controller
         // dd($amountSum);
         return view('client.my_requests', compact('requests', 'amountSum', 'requestsCount', 'requestsTotals'));
     }
+
+    public function show(ServiceRequest $serviceRequest)
+    {
+        $this->authorize('view', $serviceRequest);
+        if ($serviceRequest->client_id !== auth()->id()) {
+            abort(403);
+        }
+        // dd($serviceRequest);
+
+        return view('client.show_service', [
+            'request' => $serviceRequest
+        ]);
+    }
+
+
     public function store(Request $request, $professionalId)
     {
         // dd($request);
@@ -42,7 +57,7 @@ class ServiceRequestController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'scheduled_at' => 'nullable|date',
-            'images' => 'nullable|array|max:5',
+            'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'date' => 'nullable|date',
             'time' => 'nullable',
@@ -57,7 +72,6 @@ class ServiceRequestController extends Controller
             'time.required' => 'L\'heure est obligatoire.',
 
             'images.array' => 'Les images doivent être sous forme de liste.',
-            'images.max' => 'Vous pouvez ajouter maximum 5 images.',
 
             'images.*.image' => 'Chaque fichier doit être une image.',
             'images.*.mimes' => 'Formats autorisés: jpeg, png, jpg, gif.',
@@ -94,17 +108,50 @@ class ServiceRequestController extends Controller
 
         return redirect()->back()->with('success', 'Request sent successfully');
     }
-
-    public function show(ServiceRequest $serviceRequest)
+    public function update(Request $request, $id)
     {
-        $this->authorize('view', $serviceRequest);
-        if ($serviceRequest->client_id !== auth()->id()) {
-            abort(403);
-        }
-        // dd($serviceRequest);
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'date' => 'nullable|date',
+            'time' => 'nullable',
+        ], [
+            'title.required' => 'Le titre est obligatoire.',
+            'description.required' => 'La description est obligatoire.',
 
-        return view('client.show_service', [
-            'request' => $serviceRequest
+            'images.array' => 'Les images doivent être une liste.',
+            'images.*.image' => 'Chaque fichier doit être une image.',
         ]);
+
+        $serviceRequest = ServiceRequest::findOrFail($id);
+
+        $images = $request->old_images ?? [];
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $img) {
+                $name = time() . '_' . uniqid() . '.' . $img->extension();
+                $img->move(public_path('images'), $name);
+
+                $images[] = 'images/' . $name;
+            }
+        }
+
+
+        $scheduled_at = null;
+
+        if ($request->date && $request->time) {
+            $scheduled_at = $request->date . ' ' . $request->time;
+        }
+
+        $serviceRequest->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => $images,
+            'scheduled_at' => $scheduled_at,
+        ]);
+
+        return redirect()->back()->with('success', 'Request updated successfully');
     }
 }
