@@ -15,6 +15,7 @@ return new class extends Migration
             $table->enum('role', ['client', 'professional', 'admin'])->default('client');
             $table->string('phone')->nullable();
             $table->string('city')->nullable();
+            $table->string('image')->nullable();
         });
     }
     /**

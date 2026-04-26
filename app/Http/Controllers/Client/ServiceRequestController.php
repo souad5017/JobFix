@@ -161,7 +161,9 @@ class ServiceRequestController extends Controller
 
     public function destroy($id)
     {
-        $this->authorize('delete', $id);
+        $service = ServiceRequest::findOrFail($id);
+
+        $this->authorize('delete', $service);
         $service = ServiceRequest::findOrFail($id);
         foreach ($service->images ?? [] as $image) {
             Storage::delete($image);

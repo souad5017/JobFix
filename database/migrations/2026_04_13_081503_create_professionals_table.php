@@ -16,10 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->decimal('rating', 3, 2)->default(0);
-            $table->integer('reviews_count')->default(0);
-            $table->string('phone')->nullable();
-            $table->string('city')->nullable();
             $table->timestamps();
         });
     }

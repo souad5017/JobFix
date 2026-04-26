@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('professional_id')->constrained('professionals')->onDelete('cascade');
+            $table->text('titre');
             $table->text('description');
-            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
+            $table->json('image')->nullable();
             $table->dateTime('scheduled_at')->nullable();
             $table->timestamps();
         });

@@ -110,18 +110,19 @@
                         <div class="space-y-4">
                             <h3 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Photos jointes</h3>
                             <div class="grid grid-cols-3 gap-4">
-                                @if(!empty($request->image))
+                                @if(!empty($request->image) && count($request->image) > 0)
                                 @foreach($request->image ?? [] as $img)
                                 <div class="aspect-square rounded-lg overflow-hidden relative group cursor-pointer">
                                     <img src="{{ asset($img) }}"
                                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                                 </div>
                                 @endforeach
-                                @endif
-                                <div class="aspect-square rounded-lg overflow-hidden relative group cursor-pointer bg-surface-container-high flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/30">
-                                    <span class="material-symbols-outlined text-on-surface-variant text-3xl mb-2">add_a_photo</span>
-                                    <span class="text-xs font-bold text-on-surface-variant">Ajouter</span>
+                                @else
+                                <div class="col-span-3 flex flex-col items-center justify-center py-10 text-slate-400 border-2 border-dashed rounded-lg">
+                                    <span class="material-symbols-outlined text-3xl mb-2">image_not_supported</span>
+                                    <p class="text-sm font-bold">Aucune image disponible</p>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -150,8 +151,8 @@
                             Modifier la demande
                         </span>
                     </button>
-                    <button  class="w-full text-error py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-error/5 transition-colors group"
-                    onclick="deleteService('{{ $request->id }}')">
+                    <button class="w-full text-error py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-error/5 transition-colors group"
+                        onclick="deleteService('{{ $request->id }}')">
                         <span class="flex items-center">
                             <span class="material-symbols-outlined mr-3">cancel</span>
                             Annuler la demande
