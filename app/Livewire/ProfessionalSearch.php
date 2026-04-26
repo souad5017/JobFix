@@ -19,7 +19,7 @@ class ProfessionalSearch extends Component
         'search',
         'rating'
     ];
-    
+
 
     public function updatingSearch()
     {
@@ -48,22 +48,23 @@ class ProfessionalSearch extends Component
         $categories = Category::all();
 
         $professionals = Professional::with(['user', 'category'])
+            ->withAvg('reviews', 'rating')
             ->when($this->search, function ($q) {
                 $q->where(function ($query) {
                     $query->whereHas('user', function ($q2) {
                         $q2->where('name', 'like', '%' . $this->search . '%')
-                           ->orWhere('city', 'like', '%' . $this->search . '%');
+                            ->orWhere('city', 'like', '%' . $this->search . '%');
                     })
-                    ->orWhereHas('category', function ($q2) {
-                        $q2->where('name', 'like', '%' . $this->search . '%');
-                    });
+                        ->orWhereHas('category', function ($q2) {
+                            $q2->where('name', 'like', '%' . $this->search . '%');
+                        });
                 });
             })
             ->when(!empty($this->selectedSpecialties), function ($q) {
                 $q->whereIn('category_id', $this->selectedSpecialties);
             })
             ->when($this->rating, function ($q) {
-                $q->where('rating', '>=', $this->rating);
+                $q->having('reviews_avg_rating', '>=', $this->rating);
             })
             ->latest()
             ->paginate(6);

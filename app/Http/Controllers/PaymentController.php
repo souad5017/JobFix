@@ -11,7 +11,7 @@ class PaymentController extends Controller
 
     public function store(Request $request, ServiceRequest $serviceRequest)
     {
-        $this->authorize('update', $serviceRequest);
+        $this->authorize('create', $serviceRequest);
 
         $request->validate([
             'amount' => 'required|numeric|min:0',

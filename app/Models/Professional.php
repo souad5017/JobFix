@@ -24,10 +24,6 @@ class Professional extends Model
         return $this->hasMany(ServiceRequest::class);
     }
 
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
 
     public function reviews()
     {

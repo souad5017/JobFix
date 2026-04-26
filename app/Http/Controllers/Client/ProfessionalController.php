@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Professional;
+use App\Models\Review;
 use App\Models\User;
 
 class ProfessionalController extends Controller
@@ -32,7 +33,9 @@ class ProfessionalController extends Controller
     public function show($id)
     {
         $professional = Professional::findOrFail($id);
+        $review = Review::where('professional_id', $id)->avg('rating') ;
+        // dd($review);
 
-        return view('client.professionals.show', compact('professional'));
+        return view('client.professionals.show', compact('professional' , 'review'));
     }
 }

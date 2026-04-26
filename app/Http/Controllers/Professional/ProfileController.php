@@ -20,7 +20,7 @@ class ProfileController extends Controller
     }
     public function store(Request $request)
     {
-       
+
         $request->validate([
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'category_id' => 'required|exists:categories,id',
@@ -35,15 +35,15 @@ class ProfileController extends Controller
             'user_id' => auth()->id(),
             'category_id' => $request->category_id,
             'description' => $request->description,
-           
+
         ]);
 
-        User::update([
+        auth()->user()->update([
             'image' => $imagePath,
             'city' => $request->city,
             'phone' => $request->phone,
         ]);
 
-        return redirect('professional/dashboard')->with('success', 'Profil créé avec succès');
+        return redirect()->route('professional.dashboard')->with('success', 'Profil créé avec succès');
     }
 }

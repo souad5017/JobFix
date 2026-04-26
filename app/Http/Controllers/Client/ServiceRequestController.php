@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Models\ServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class ServiceRequestController extends Controller
 {
     public function myRequests()
@@ -110,6 +111,9 @@ class ServiceRequestController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $serviceRequest = ServiceRequest::findOrFail($id);
+
+        $this->authorize('update', $serviceRequest);
         $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
@@ -157,6 +161,7 @@ class ServiceRequestController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('delete', $id);
         $service = ServiceRequest::findOrFail($id);
         foreach ($service->images ?? [] as $image) {
             Storage::delete($image);

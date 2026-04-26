@@ -161,7 +161,7 @@
             <div class="flex items-center gap-3 p-3 mb-4 rounded-2xl transition-colors hover:bg-slate-50">
                 <div class="relative">
                     <img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
-                        src="{{ auth()->user()->image }}"
+                        src="{{ asset('storage/'.auth()->user()->image) }}"
                         alt="{{ auth()->user()->name }}">
                     <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
                 </div>

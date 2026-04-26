@@ -60,7 +60,7 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
     })->name('professional.dashboard');
 
     Route::get('/complete-profile', [ProfessionalProfileController::class, 'create'])
-        ->name('profile.complete');
+    ->name('professional.profile.complete');
     Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
         ->name('professional.profile.store');
 
