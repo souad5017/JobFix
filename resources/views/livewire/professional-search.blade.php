@@ -12,10 +12,11 @@
 
         <div class="space-y-6">
             <div class="relative group">
-                <div class="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+                <button wire:click="doSearch" type="button"
+                    class="absolute inset-y-0 left-6 flex items-center">
                     <span class="material-symbols-outlined text-secondary opacity-50">search</span>
-                </div>
-                <input wire:model.debounce.500ms="search" class="w-full pl-16 pr-6 py-6 bg-surface-container-high border-none rounded-lg text-lg focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 transition-all outline-none"
+                </button>
+                <input wire:model.debounce.300ms="search" class="w-full pl-16 pr-6 py-6 bg-surface-container-high border-none rounded-lg text-lg focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container/20 transition-all outline-none"
                     placeholder="Search for professionals, skills or locations..."
                     type="text" />
             </div>
@@ -151,8 +152,7 @@
                     <div class="flex items-start gap-6 mb-6">
                         <div class="relative w-24 h-24 flex-shrink-0">
                             <img alt="Marcus Chen" class="w-full h-full object-cover rounded-xl" data-alt="professional portrait of a confident male plumber wearing a clean blue uniform smiling in a workshop environment"
-                                src="{{ asset('storage/'.$pro->image) }}" />
-                            <div class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-white"></div>
+                                src="{{ asset('storage/'.$pro->user->image) }}" />
                         </div>
                         <div class="flex-grow">
                             <div class="flex items-center justify-between mb-1">
@@ -161,15 +161,15 @@
                             <p class="text-primary-container font-bold text-sm uppercase tracking-wider mb-2"> {{ $pro->category->name }}</p>
                             <div class="flex items-center gap-1 text-sm font-bold">
                                 <span class="material-symbols-outlined text-orange-400 text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span>4.9</span>
-                                <span class="text-secondary font-normal ml-1">(128 reviews)</span>
+                                <span>{{ round($pro->reviews_avg_rating, 1) }}</span>
+                                <span class="text-secondary text-sm">/ 5 </span>
                             </div>
                         </div>
                     </div>
                     <div class="mt-auto flex items-center justify-between gap-4">
                         <div class="bg-surface-container-low p-3 text-center font-bold px-8 py-3 rounded-full">
                             <span class="block text-xs text-secondary font-bold uppercase tracking-tighter">Completed Jobs</span>
-                            <span class="text-lg font-bold">450+</span>
+                            <span class="text-lg font-bold">{{ $pro->completed_services_count }}</span>
                         </div>
                         <a href="{{ route('client.professionals.show', $pro->id) }}"
                             class="bg-primary-container text-on-primary-container font-bold px-8 py-3 rounded-full hover:scale-95 transition-all">

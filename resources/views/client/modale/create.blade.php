@@ -20,7 +20,7 @@
             <div class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg">
                 <div class="relative">
                     <img class="w-14 h-14 rounded-full object-cover" data-alt="professional portrait of a middle aged man in a blue work shirt smiling confidently with neutral background"
-                        src="{{ 'storage/'.$professional->user->image}}" />
+                     src="{{ asset('storage/' . $professional->user->image) }}" />
                 </div>
                 <div>
                     <p class="text-xs font-bold text-orange-600 uppercase tracking-widest mb-0.5">{{ $professional->category->name }}</p>

@@ -35,6 +35,10 @@ class ProfessionalSearch extends Component
     {
         $this->resetPage();
     }
+    public function doSearch()
+    {
+        $this->resetPage();
+    }
 
     public function resetFilters()
     {
@@ -47,31 +51,42 @@ class ProfessionalSearch extends Component
     {
         $categories = Category::all();
 
-        $professionals = Professional::with(['user', 'category'])
+        $query = Professional::with(['user', 'category'])
             ->withAvg('reviews', 'rating')
-            ->when($this->search, function ($q) {
-                $q->where(function ($query) {
-                    $query->whereHas('user', function ($q2) {
-                        $q2->where('name', 'like', '%' . $this->search . '%')
+            ->withCount([
+                'requests as completed_services_count' => function ($q) {
+                    $q->where('status', 'accepted')
+                        ->where('progress', 'completed');
+                }
+            ]);
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->whereHas('user', function ($q2) {
+                    $q2->where(function ($sub) {
+                        $sub->where('name', 'like', '%' . $this->search . '%')
                             ->orWhere('city', 'like', '%' . $this->search . '%');
-                    })
-                        ->orWhereHas('category', function ($q2) {
-                            $q2->where('name', 'like', '%' . $this->search . '%');
-                        });
-                });
-            })
-            ->when(!empty($this->selectedSpecialties), function ($q) {
-                $q->whereIn('category_id', $this->selectedSpecialties);
-            })
-            ->when($this->rating, function ($q) {
-                $q->having('reviews_avg_rating', '>=', $this->rating);
-            })
-            ->latest()
-            ->paginate(6);
+                    });
+                })
+                    ->orWhereHas('category', function ($q2) {
+                        $q2->where('name', 'like', '%' .$this->search . '%');
+                    });
+            });
+        }
+
+        if (!empty($this->selectedSpecialties)) {
+            $query->whereIn('category_id', $this->selectedSpecialties);
+        }
+
+        if ($this->rating) {
+            $query->having('reviews_avg_rating', '>=', $this->rating);
+        }
+
+        $professionals = $query->latest()->paginate(6);
 
         return view('livewire.professional-search', [
             'professionals' => $professionals,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 }

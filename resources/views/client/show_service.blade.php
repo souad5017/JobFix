@@ -132,8 +132,7 @@
                 <!-- Professional Information Card -->
                 <div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(25,28,30,0.06)] border border-outline-variant/15 text-center">
                     <div class="relative w-24 h-24 mx-auto mb-4">
-                        <img src=" {{ 'storage/'.$request->professional->user->image}}" class="w-full h-full object-cover rounded-full" data-alt="professional male contractor in blue work shirt smiling confidently with short hair and clean look" />
-                        <div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-4 border-white rounded-full"></div>
+                        <img src="{{ asset('storage/' . $request->professional->user->image) }}" class="w-full h-full object-cover rounded-full" data-alt="professional male contractor in blue work shirt smiling confidently with short hair and clean look" />
                     </div>
                     <h3 class="text-xl font-bold text-on-surface">{{ $request->professional->user->name }}</h3>
                     <p class="text-on-surface-variant text-sm mb-4">{{ $request->professional->category->name }} • {{$request->professional->user->city}}</p>

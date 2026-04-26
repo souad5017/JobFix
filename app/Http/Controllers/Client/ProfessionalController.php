@@ -21,10 +21,16 @@ class ProfessionalController extends Controller
                 $q->whereHas('user', function ($q2) use ($query) {
                     $q2->where('name', 'like', '%' . $query . '%');
                 });
-            })
+            })->withAvg('reviews', 'rating')
             ->paginate(6);
+        $completedServicesCount = Professional::withCount([
+            'requests as completed_services_count' => function ($q) {
+                $q->where('status', 'accepted')
+                    ->where('progress', 'completed');
+            }
+        ])->get();
 
-        return view('client.professionals.index', compact('professionals'));
+        return view('client.professionals.index');
     }
 
     /**
@@ -33,9 +39,9 @@ class ProfessionalController extends Controller
     public function show($id)
     {
         $professional = Professional::findOrFail($id);
-        $review = Review::where('professional_id', $id)->avg('rating') ;
+        $review = Review::where('professional_id', $id)->avg('rating');
         // dd($review);
 
-        return view('client.professionals.show', compact('professional' , 'review'));
+        return view('client.professionals.show', compact('professional', 'review'));
     }
 }
