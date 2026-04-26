@@ -52,7 +52,7 @@
                     <a href="{{ route('requests.show', $service->id) }}">
                         <div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col shadow-[0px_10px_30px_rgba(25,28,30,0.03)] group opacity-80 border border-transparent hover:border-primary-container/10 transition-all">
                             <div class="relative h-56 {{ !$service->is_active ? 'grayscale' : '' }}">
-                                <img alt="Heating Service" src="{{ asset($service->image) }}" class="w-full h-full object-cover" data-alt="close-up of a central heating boiler control panel with digital display and technician's hands adjusting settings" />
+                                <img alt="Heating Service" src="#" class="w-full h-full object-cover" data-alt="close-up of a central heating boiler control panel with digital display and technician's hands adjusting settings" />
                                 <div class="absolute top-4 left-4">
                                     <span class="bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-on-surface shadow-sm">
                                         {{ $service->category->name ?? 'N/A' }}

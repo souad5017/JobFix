@@ -9,6 +9,8 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Professional\ProfileController as ProfessionalProfileController;
 use App\Http\Controllers\Professional\ServiceController;
+use App\Http\Controllers\Professional\ProDashboardController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,10 +44,14 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
         ->name('client.requests.show');
 
-    Route::post('/service-request/{professionalId}',[ServiceRequestController::class, 'store']
+    Route::post(
+        '/service-request/{professionalId}',
+        [ServiceRequestController::class, 'store']
     )->name('service.store');
 
-    Route::put('/service-request/{id}',[ServiceRequestController::class, 'update']
+    Route::put(
+        '/service-request/{id}',
+        [ServiceRequestController::class, 'update']
     )->name('service.update');
 
     Route::delete('/services/{service}', [ServiceRequestController::class, 'destroy'])->name('services.destroy');
@@ -55,12 +61,12 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 //professional
 Route::middleware(['auth', 'role:professional'])->group(function () {
 
-    Route::get('/professional/dashboard', function () {
-        return view('professional.dashboard');
-    })->name('professional.dashboard');
+
+    Route::get('/professional/dashboard', [ProDashboardController::class, 'index'])
+        ->name('professional.dashboard');
 
     Route::get('/complete-profile', [ProfessionalProfileController::class, 'create'])
-    ->name('professional.profile.complete');
+        ->name('professional.profile.complete');
     Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
         ->name('professional.profile.store');
 
@@ -73,11 +79,13 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('requests.update');
 
     Route::post(
-        '/requests/{serviceRequest}/price',[PaymentController::class, 'store']
+        '/requests/{serviceRequest}/price',
+        [PaymentController::class, 'store']
     )->name('payment.store');
 
     Route::post(
-        '/requests/{serviceRequest}/price/update',[PaymentController::class, 'update']
+        '/requests/{serviceRequest}/price/update',
+        [PaymentController::class, 'update']
     )->name('payment.update');
 });
 

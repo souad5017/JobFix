@@ -6,7 +6,7 @@
             <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div class="space-y-2">
                     <h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight leading-tight">
-                        Bienvenue, <span class="text-primary-container">Marc Lefebvre</span>
+                        Bienvenue, <span class="text-primary-container"></span>
                     </h2>
                 </div>
             </section>

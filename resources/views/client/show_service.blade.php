@@ -23,12 +23,12 @@
 
                         @elseif($request->status === 'accepted')
                         @if ($request->progress === 'in_progress')
-                        <div class="bg-[#F37021]/10 text-blue-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                        <div class="bg-blue-100 text-blue-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
                             <span class="w-2 h-2 bg-blue-600 rounded-full mr-2 animate-pulse"></span>
                             In Progress
                         </div>
                         @elseif($request->progress === 'completed')
-                        <div class="bg-[#F37021]/10 text-emerald-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                        <div class="bg-emerald-100 text-emerald-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
                             <span class="w-2 h-2 bg-emerald-600 rounded-full mr-2 animate-pulse"></span>
                             Terminé
                         </div>
@@ -36,7 +36,7 @@
                         @endif
 
                         @elseif($request->status === 'rejected')
-                        <div class="bg-[#F37021]/10 text-rose-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
+                        <div class="bg-rose-100 text-rose-600 px-5 py-2 rounded-full font-bold text-sm flex items-center">
                             <span class="w-2 h-2 bg-rose-600 rounded-full mr-2 animate-pulse"></span>
                             Rejeté
                         </div>
@@ -141,8 +141,20 @@
                         <span class="material-symbols-outlined">chat_bubble</span>
                         Contacter
                     </button>
+                    @if (!empty($payment->amount) && $payment->status != 'paid')
+                    <button class="w-full bg-[#F37021] text-white py-4 mt-4 px-6 rounded-full font-bold flex items-center justify-center gap-1 flex-col  hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[#F37021]/20">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined">payments</span>
+                            <span>Payer maintenant</span>
+                        </div>
+                        <span class="text-sm font-bold">
+                            ({{ $payment->amount }} MAD)
+                        </span>
+                    </button>
+                    @endif
                 </div>
                 <!-- Action Sidebar -->
+                @if ($request->status === 'accepted' && !$request->progress === 'completed' )
                 <div class="bg-surface-container-low rounded-lg p-6 space-y-4">
                     <h4 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-2 px-2">Actions Rapides</h4>
                     <button onclick="openUpdate()" class="w-full bg-surface-container-lowest text-on-surface py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-white transition-colors group">
@@ -165,6 +177,8 @@
                         @method('DELETE')
                     </form>
                 </div>
+                @endif
+
             </aside>
         </div>
         @include('client.modale.updete')

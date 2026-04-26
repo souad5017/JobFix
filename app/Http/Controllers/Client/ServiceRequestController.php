@@ -42,10 +42,13 @@ class ServiceRequestController extends Controller
         if ($serviceRequest->client_id !== auth()->id()) {
             abort(403);
         }
-        // dd($serviceRequest);
+        // dd($serviceRequest->id);
 
+        $payment = Payment::where('service_request_id' , $serviceRequest->id)->first();
+        
         return view('client.show_service', [
-            'request' => $serviceRequest
+            'request' => $serviceRequest,
+            'payment' => $payment
         ]);
     }
 
