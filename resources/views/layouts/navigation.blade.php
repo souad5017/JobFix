@@ -16,30 +16,30 @@
                     <x-nav-link href="{{ route('client.requests') }}" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
                         Mes Demandes
                     </x-nav-link>
+                    <x-nav-link href="{{ route('client.profil') }}" class="!text-slate-500 hover:!text-[#f97316] font-bold uppercase text-xs tracking-widest transition">
+                        Profil
+                    </x-nav-link>
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="px-4 py-1 rounded-full bg-[#1e293b] text-white text-[10px] font-black uppercase tracking-[0.2em]">
-                    {{ Auth::user()->role }}
-                </span>
-                
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="h-10 w-10 rounded-full bg-white border border-gray-200 flex items-center justify-center font-bold text-[#1e293b] hover:border-[#f97316] transition">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </button>
-                    </x-slot>
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">Profil</x-dropdown-link>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-red-600 font-bold">
-                                Déconnexion
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button>
+                        <span class="material-symbols-outlined" data-icon="logout">logout</span>
+                    </button>
+                </form>
+                @if(Auth::user()->image)
+                <img class="h-10 w-10 rounded-full border border-gray-200 object-cover"
+                    src="{{ asset('storage/'.Auth::user()->image) }}">
+                @else
+                <div class="h-10 w-10 rounded-full bg-white border border-gray-200 flex items-center justify-center font-bold text-[#1e293b]">
+                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                </div>
+                @endif
+
+
             </div>
         </div>
     </div>

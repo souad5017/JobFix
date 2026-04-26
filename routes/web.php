@@ -43,6 +43,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
         ->name('client.requests');
     Route::get('/client/requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
         ->name('client.requests.show');
+     
 
     Route::post(
         '/service-request/{professionalId}',
@@ -55,6 +56,10 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     )->name('service.update');
 
     Route::delete('/services/{service}', [ServiceRequestController::class, 'destroy'])->name('services.destroy');
+
+    Route::get('/client', [ServiceRequestController::class, ''])
+        ->name('client.profil');
+    
 });
 
 
