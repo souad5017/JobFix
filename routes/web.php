@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\ClientProfil;
 use App\Http\Controllers\Client\DashboardController;
 use App\Http\Controllers\Client\ProfessionalController;
 use App\Http\Controllers\Client\ServiceRequestController;
@@ -43,7 +44,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
         ->name('client.requests');
     Route::get('/client/requests/{serviceRequest}', [ServiceRequestController::class, 'show'])
         ->name('client.requests.show');
-     
+
 
     Route::post(
         '/service-request/{professionalId}',
@@ -57,9 +58,11 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::delete('/services/{service}', [ServiceRequestController::class, 'destroy'])->name('services.destroy');
 
-    Route::get('/client', [ServiceRequestController::class, ''])
+    Route::get('/client', [ClientProfil::class, 'index'])
         ->name('client.profil');
-    
+    Route::post('/profile/image', [ClientProfil::class, 'updatePhoto'])
+        ->name('profile.update.photo');
+        
 });
 
 

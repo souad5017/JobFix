@@ -47,7 +47,7 @@
                     <div class="flex justify-between items-start mb-6">
                         <div class="flex items-center gap-4">
                             <img alt="Pro Photo" class="w-14 h-14 rounded-full object-cover" data-alt="Headshot of a professional plumber with a friendly expression, wearing a grey work uniform against a blurred workshop background."
-                                src="{{ 'storage/'.$request->professional->user->image }}" />
+                                src="{{ asset('storage/'.$request->professional->user->image) }}" />
                             <div>
                                 <h3 class="text-lg font-bold text-on-background leading-tight">{{ $request->professional->user->name }}</h3>
                                 <p class="text-sm text-secondary">{{ $request->professional->category->name }}</p>

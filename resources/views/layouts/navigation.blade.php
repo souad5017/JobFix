@@ -23,7 +23,6 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <span class="material-symbols-outlined" data-icon="settings">settings</span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button>
