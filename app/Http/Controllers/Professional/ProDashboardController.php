@@ -13,9 +13,9 @@ class ProDashboardController extends Controller
 
      public function index()
     {
-        $userId = auth()->id();
+        $user = auth()->user();
 
-        $requestsCount = ServiceRequest::where('professional_id' , $userId)->count();
+        $requestsCount = ServiceRequest::where('professional_id' , $user->id)->count();
         // dd($requestsCount);
 
 
@@ -30,14 +30,15 @@ class ProDashboardController extends Controller
         // $averageRating = 
 
         return view('professional.dashboard'
-        // , compact(
+        , compact(
+            'user'
         //     'requestsCount',
         //     'recentRequests',
         //     'professionals',
         //     'amountSum',
         //     'reviewsCount',
         //     'averageRating'
-        // )
+        )
         );
     }
 }

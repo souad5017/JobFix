@@ -33,8 +33,12 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        if ($request->user()->role === 'client') {
+            return Redirect::route('client.profil')->with('status', 'profile-updated');
+        }elseif($request->user()->role === 'professional'){
+                    return Redirect::route('professional.profile.edit')->with('status', 'profile-updated');
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        }
     }
 
     /**

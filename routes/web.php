@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\ServiceRequestController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ImageProfilController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\Professional\ProfileController as ProfessionalProfileController;
 use App\Http\Controllers\Professional\ServiceController;
@@ -21,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/image', [ImageProfilController::class, 'updatePhoto'])->name('profile.update.photo');
 });
 
 
@@ -60,9 +62,6 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/client', [ClientProfil::class, 'index'])
         ->name('client.profil');
-    Route::post('/profile/image', [ClientProfil::class, 'updatePhoto'])
-        ->name('profile.update.photo');
-        
 });
 
 
@@ -77,6 +76,11 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         ->name('professional.profile.complete');
     Route::post('/complete-profile', [ProfessionalProfileController::class, 'store'])
         ->name('professional.profile.store');
+    Route::get('professionel/profile/edit', [ProfessionalProfileController::class, 'edit'])
+        ->name('professional.profile.edit');
+    Route::put('professionel/profile/update', [ProfessionalProfileController::class, 'update'])
+        ->name('professional.profile.update');
+
 
     Route::get('/requests', [ServiceController::class, 'index'])
         ->name('professional.services');
@@ -96,5 +100,13 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         [PaymentController::class, 'update']
     )->name('payment.update');
 });
+Route::post('/payment/pay', [PaymentController::class, 'pay'])
+    ->name('payment.pay');
+
+    Route::get('/payment/success/{id}', [PaymentController::class, 'success'])
+    ->name('payment.success');
+
+Route::get('/payment/cancel/{id}', [PaymentController::class, 'cancel'])
+    ->name('payment.cancel');
 
 require __DIR__ . '/auth.php';

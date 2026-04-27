@@ -104,6 +104,30 @@
 </head>
 
 <body class="bg-background text-on-surface">
+    <header class="bg-white/70 backdrop-blur-xl sticky top-0 z-40 px-8 py-4 flex justify-end items-center shadow-sm">
+
+        <div class="flex items-center gap-4">
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button>
+                    <span class="material-symbols-outlined">logout</span>
+                </button>
+            </form>
+
+            <div class="h-10 w-10 rounded-full bg-slate-200 overflow-hidden border-2 border-white shadow-sm">
+                @if(auth()->user()->image)
+                <img class="h-10 w-10 object-cover"
+                    src="{{ asset('storage/'.auth()->user()->image) }}">
+                @else
+                <div class="h-10 w-10 flex items-center justify-center font-bold">
+                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                </div>
+                @endif
+            </div>
+
+        </div>
+    </header>
     <!-- SideNavBar (Authority: JSON & Design System) -->
     <aside class="h-screen w-72 flex flex-col fixed left-0 top-0 bg-slate-50 border-r border-slate-200 z-50">
         <div class="flex flex-col h-full p-4 gap-2">
@@ -123,7 +147,7 @@
                     <span class="font-bold text-[15px]">Dashboard</span>
                 </a>
 
-                <a href="#"
+                <a href="{{ route('professional.profile.edit') }}"
                     class="flex items-center gap-4 px-6 py-4 transition-all duration-300 group rounded-full
        {{ request()->routeIs('professional.profile.edit') 
           ? 'bg-[#f37021] text-white shadow-[0_10px_20px_-5px_rgba(243,112,33,0.3)]' 
@@ -144,45 +168,12 @@
                     </span>
                     <span class="font-bold text-[15px]">My Services</span>
                 </a>
-
-                <a href="#"
-                    class="flex items-center gap-4 px-6 py-4 transition-all duration-300 group rounded-full
-       {{ request()->routeIs('professional.portfolio') 
-          ? 'bg-[#f37021] text-white shadow-[0_10px_20px_-5px_rgba(243,112,33,0.3)]' 
-          : 'text-slate-500 hover:text-[#f37021] hover:bg-orange-50' }}">
-                    <span class="material-symbols-outlined text-[22px] {{ request()->routeIs('professional.portfolio') ? '' : 'opacity-70 group-hover:opacity-100' }}">
-                        photo_library
-                    </span>
-                    <span class="font-bold text-[15px]">Portfolio</span>
-                </a>
             </nav>
-        </div>
-        <div class="mt-auto pt-6 border-t border-slate-100">
-            <div class="flex items-center gap-3 p-3 mb-4 rounded-2xl transition-colors hover:bg-slate-50">
-                <div class="relative">
-                    <img class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm"
-                        src="{{ asset('storage/'.auth()->user()->image) }}"
-                        alt="{{ auth()->user()->name }}">
-                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
-                </div>
-                <div>
-                    <p class="text-[13px] font-black text-slate-900 leading-tight">{{ auth()->user()->name }}</p>
-                    <p class="text-[10px] text-[#f37021] font-bold uppercase tracking-wider mt-0.5">Available for Work</p>
-                </div>
-            </div>
-
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="w-full py-4 px-6 bg-[#0f172a] text-white rounded-[20px] text-[11px] font-black uppercase tracking-[0.15em] shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-[18px]">logout</span>
-                    Sign Out
-                </button>
-            </form>
         </div>
     </aside>
     <main>
         {{ $slot }}
+    </main>
 </body>
 
 </html>

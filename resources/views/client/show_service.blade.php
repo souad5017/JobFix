@@ -142,15 +142,25 @@
                         Contacter
                     </button>
                     @if (!empty($payment->amount) && $payment->status != 'paid')
-                    <button class="w-full bg-[#F37021] text-white py-4 mt-4 px-6 rounded-full font-bold flex items-center justify-center gap-1 flex-col  hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[#F37021]/20">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined">payments</span>
-                            <span>Payer maintenant</span>
-                        </div>
-                        <span class="text-sm font-bold">
-                            ({{ $payment->amount }} MAD)
-                        </span>
-                    </button>
+                    <form action="{{ route('payment.pay') }}" method="POST">
+                        @csrf
+
+                        <input type="hidden" name="payment_id" value="{{ $payment->id }}">
+
+                        <button type="submit"
+                            class="w-full bg-[#F37021] text-white py-4 mt-4 px-6 rounded-full font-bold flex items-center justify-center gap-1 flex-col hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[#F37021]/20">
+
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined">payments</span>
+                                <span>Payer maintenant</span>
+                            </div>
+
+                            <span class="text-sm font-bold">
+                                ({{ $payment->amount }} MAD)
+                            </span>
+
+                        </button>
+                    </form>
                     @endif
                 </div>
                 <!-- Action Sidebar -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Professional;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Professional;
+use App\Models\ServiceRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -45,5 +46,38 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('professional.dashboard')->with('success', 'Profil créé avec succès');
+    }
+
+    public function edit()
+    {
+        $user = auth()->user();
+        $categories = Category::all();
+        $professional = Professional::where('user_id', $user->id)->first();
+        $services = ServiceRequest::where('professional_id', $professional->id)->where('status', 'accepted')
+            ->where('progress', '!=', 'completed')
+            ->get();
+
+        $services->load('client');
+        return view('professional.profile.edit', compact('user', 'categories', 'professional', 'services'));
+    }
+
+    public function update(Request $request)
+    {
+
+        $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'description' => ['nullable', 'string', 'min:10'],
+        ]);
+
+        $user = $request->user();
+
+        if ($user->professional) {
+            $user->professional->update([
+                'category_id' => $request->category_id,
+                'description' => $request->description,
+            ]);
+        }
+
+        return back()->with('status', 'profile-updated');
     }
 }

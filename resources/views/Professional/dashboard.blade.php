@@ -1,12 +1,12 @@
 <x-professional-layout>
     <!-- Main Content Canvas -->
-    <main class="pl-72 pt-20 min-h-screen">
+    <div class="pl-72 pt-10 min-h-screen">
         <div class="max-w-[1400px] mx-auto p-12 space-y-12">
             <!-- Welcome Header -->
             <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div class="space-y-2">
                     <h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight leading-tight">
-                        Bienvenue, <span class="text-primary-container"></span>
+                        Bienvenue, <span class="text-primary-container">{{ $user->name }}</span>
                     </h2>
                 </div>
             </section>
@@ -172,12 +172,9 @@
                 </section>
             </div>
         </div>
-    </main>
+</div>
     <!-- Floating Action for Mobile / Support -->
     <button class="fixed bottom-8 right-8 w-16 h-16 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-slate-800 transition-all z-50">
         <span class="material-symbols-outlined text-3xl">question_answer</span>
     </button>
-    </body>
-
-    </html>
 </x-professional-layout>
