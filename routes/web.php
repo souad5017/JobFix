@@ -62,6 +62,16 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/client', [ClientProfil::class, 'index'])
         ->name('client.profil');
+
+
+    Route::post('/payment/pay', [PaymentController::class, 'pay'])
+        ->name('payment.pay');
+
+    Route::get('/payment/success/{id}', [PaymentController::class, 'success'])
+        ->name('payment.success');
+
+    Route::get('/payment/cancel/{id}', [PaymentController::class, 'cancel'])
+        ->name('payment.cancel');
 });
 
 
@@ -100,13 +110,6 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
         [PaymentController::class, 'update']
     )->name('payment.update');
 });
-Route::post('/payment/pay', [PaymentController::class, 'pay'])
-    ->name('payment.pay');
 
-    Route::get('/payment/success/{id}', [PaymentController::class, 'success'])
-    ->name('payment.success');
-
-Route::get('/payment/cancel/{id}', [PaymentController::class, 'cancel'])
-    ->name('payment.cancel');
 
 require __DIR__ . '/auth.php';

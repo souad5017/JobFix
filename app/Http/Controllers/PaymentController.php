@@ -11,36 +11,37 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
 
-    public function store(Request $request, ServiceRequest $serviceRequest)
-    {
-        $this->authorize('create', $serviceRequest);
+public function store(Request $request, ServiceRequest $serviceRequest)
+{
+    $request->validate([
+        'amount' => 'required|numeric|min:0',
+    ]);
 
-        $request->validate([
-            'amount' => 'required|numeric|min:0',
-        ]);
+    Payment::create([
+        'service_request_id' => $serviceRequest->id,
+        'amount' => $request->amount,
+        'status' => 'pending',
+    ]);
 
-        Payment::create([
-            'service_request_id' => $serviceRequest->id,
-            'amount' => $request->amount,
-            'status' => 'pending', 
-        ]);
+    return back()->with('success', 'Price added successfully');
+}
 
-        return back()->with('success', 'Price added successfully');
-    }
-    public function update(Request $request, ServiceRequest $serviceRequest)
-    {
-        $this->authorize('update', $serviceRequest);
+public function update(Request $request, ServiceRequest $serviceRequest)
+{
+    $request->validate([
+        'amount' => 'required|numeric|min:0'
+    ]);
 
-        $request->validate([
-            'amount' => 'required|numeric|min:0'
-        ]);
+    $payment = Payment::where('service_request_id', $serviceRequest->id)->first();
 
-        Payment::update([
+    if ($payment) {
+        $payment->update([
             'amount' => $request->amount
         ]);
-
-        return back()->with('success', 'Price updated successfully');
     }
+
+    return back()->with('success', 'Price updated successfully');
+}
 
     public function pay(Request $request)
     {
