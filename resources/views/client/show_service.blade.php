@@ -164,7 +164,7 @@
                     @endif
                 </div>
                 <!-- Action Sidebar -->
-                @if ($request->status === 'accepted' && !$request->progress === 'completed' )
+                @if ($request->status === 'accepted' && $request->progress !== 'completed' )
                 <div class="bg-surface-container-low rounded-lg p-6 space-y-4">
                     <h4 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest mb-2 px-2">Actions Rapides</h4>
                     <button onclick="openUpdate()" class="w-full bg-surface-container-lowest text-on-surface py-4 px-6 rounded-lg font-bold flex items-center justify-between hover:bg-white transition-colors group">
