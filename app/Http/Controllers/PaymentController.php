@@ -81,11 +81,16 @@ public function update(Request $request, ServiceRequest $serviceRequest)
     }
     public function success($id)
     {
-        $payment = Payment::findOrFail($id);
+        $payment = Payment::with('serviceRequest')->findOrFail($id);
 
         $payment->update([
             'status' => 'paid'
         ]);
+        if($payment->serviceRequest){
+            $payment->serviceRequest->update([
+                'progress' => 'completed'
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Payment successful.');
     }
